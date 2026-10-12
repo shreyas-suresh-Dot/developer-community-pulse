@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           Skip to content
         </a>
         <SiteHeader />
-        <main id="main" tabIndex={-1} className="mx-auto w-full max-w-6xl flex-1 px-4 pt-10 outline-none sm:px-6 sm:pt-14">
+        <main id="main" tabIndex={-1} className="mx-auto w-full max-w-7xl flex-1 px-4 pt-10 outline-none sm:px-6 sm:pt-14">
           {children}
         </main>
         <SiteFooter />

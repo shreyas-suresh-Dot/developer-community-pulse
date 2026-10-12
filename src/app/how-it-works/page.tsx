@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { DataSources, PipelineDiagram, ReliabilityRules } from "@/components/how/how-sections";
 import { RunPanel } from "@/components/runs/run-panel";
 import { RunsTable } from "@/components/runs/run-steps";
-import { PageIntro, Section } from "@/components/ui/layout";
+import { PageIntro, Section, SectionsWithNav } from "@/components/ui/layout";
 import { EmptyNote, ErrorBox, Skeleton } from "@/components/ui/notices";
 import { listRuns, settle } from "@/lib/data";
 import { recentWeekEnds, weekLabel } from "@/lib/format";
@@ -16,6 +16,15 @@ export const metadata: Metadata = {
     "How the weekly brief is made: the pipeline from Vercel Cron to Gemini to Supabase, the reliability rules, the data sources and the live run log.",
 };
 
+/** Same order as the numbered sections below; drives the sticky "On this page" menu. */
+const SECTIONS = [
+  { id: "pipeline", label: "The pipeline" },
+  { id: "reliability", label: "Reliability rules" },
+  { id: "sources", label: "Data sources" },
+  { id: "runs", label: "Recent runs" },
+  { id: "run-now", label: "Run it now" },
+] as const;
+
 export default function HowItWorksPage() {
   return (
     <div className="space-y-14 sm:space-y-16">
@@ -24,49 +33,51 @@ export default function HowItWorksPage() {
         asks Gemini to group and explain them, checks every claim against the source, and publishes the brief here and by email.
       </PageIntro>
 
-      <Section
-        id="pipeline"
-        index="01"
-        title="The pipeline"
-        intro="Ten steps, one run, usually two to three minutes. Each step records its status, time and detail, which the run log below shows."
-      >
-        <PipelineDiagram />
-      </Section>
+      <SectionsWithNav sections={SECTIONS} label="Sections of this page">
+        <Section
+          id="pipeline"
+          index="01"
+          title="The pipeline"
+          intro="Ten steps, one run, usually two to three minutes. Each step records its status, time and detail, which the run log below shows."
+        >
+          <PipelineDiagram />
+        </Section>
 
-      <Section
-        id="reliability"
-        index="02"
-        title="Reliability rules"
-        intro="What keeps a brief trustworthy when the model, a community or the network misbehaves."
-      >
-        <ReliabilityRules />
-      </Section>
+        <Section
+          id="reliability"
+          index="02"
+          title="Reliability rules"
+          intro="What keeps a brief trustworthy when the model, a community or the network misbehaves."
+        >
+          <ReliabilityRules />
+        </Section>
 
-      <Section
-        id="sources"
-        index="03"
-        title="Data sources"
-        intro="Three public communities with free, terms-friendly APIs, chosen because that is where developers talk about review and CI pain in the open."
-      >
-        <DataSources />
-      </Section>
+        <Section
+          id="sources"
+          index="03"
+          title="Data sources"
+          intro="Three public communities with free, terms-friendly APIs, chosen because that is where developers talk about review and CI pain in the open."
+        >
+          <DataSources />
+        </Section>
 
-      <Section id="runs" index="04" title="Recent runs" intro="Live from the pipeline_runs table. Hover a step icon for its time and detail.">
-        <Suspense fallback={<RunsSkeleton />}>
-          <RecentRuns />
-        </Suspense>
-      </Section>
+        <Section id="runs" index="04" title="Recent runs" intro="Live from the pipeline_runs table. Hover a step icon for its time and detail.">
+          <Suspense fallback={<RunsSkeleton />}>
+            <RecentRuns />
+          </Suspense>
+        </Section>
 
-      <Section
-        id="run-now"
-        index="05"
-        title="Run the pipeline now"
-        intro="Regenerates the brief for a week on demand. Passcode-protected, one run per week at a time, with a short cooldown to protect the free API quotas."
-      >
-        <Suspense fallback={<RunPanelSkeleton />}>
-          <RunPanelLoader />
-        </Suspense>
-      </Section>
+        <Section
+          id="run-now"
+          index="05"
+          title="Run the pipeline now"
+          intro="Regenerates the brief for a week on demand. Passcode-protected, one run per week at a time, with a short cooldown to protect the free API quotas."
+        >
+          <Suspense fallback={<RunPanelSkeleton />}>
+            <RunPanelLoader />
+          </Suspense>
+        </Section>
+      </SectionsWithNav>
     </div>
   );
 }

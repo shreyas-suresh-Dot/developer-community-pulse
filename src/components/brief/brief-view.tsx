@@ -3,6 +3,7 @@ import type { BriefRecord } from "@/lib/contracts";
 import { rank } from "@/lib/format";
 import { LogoMark } from "@/components/site/site-chrome";
 import { ArrowRightIcon, TargetIcon } from "@/components/ui/icons";
+import { RAIL_GRID, SectionsWithNav } from "@/components/ui/layout";
 import { Skeleton } from "@/components/ui/notices";
 import { BRIEF_SECTIONS, BriefTop } from "./brief-top";
 import { MethodSection } from "./method";
@@ -12,7 +13,7 @@ import { KeywordsSection, TrendingSection } from "./trends";
 
 /*
  * A whole brief, top to bottom, in the order Sumit reads it on Friday morning. Section ids match
- * BRIEF_SECTIONS, which also drives the "On this page" navigation in BriefTop.
+ * BRIEF_SECTIONS, which also drives the sticky "On this page" menu beside the sections.
  */
 
 type SectionId = (typeof BRIEF_SECTIONS)[number]["id"];
@@ -24,14 +25,16 @@ export function BriefView({ brief }: { brief: BriefRecord }) {
   return (
     <article className="space-y-14 sm:space-y-16">
       <BriefTop brief={brief} />
-      <PainPointsSection index={indexOf("pain-points")} analysis={analysis} stats={stats} />
-      <TrendingSection index={indexOf("trending")} stats={stats} />
-      <KeywordsSection index={indexOf("keywords")} stats={stats} />
-      <UnresolvedSection index={indexOf("unresolved")} analysis={analysis} stats={stats} />
-      <ObjectionsSection index={indexOf("objections")} analysis={analysis} />
-      <SprintSection index={indexOf("sprint")} analysis={analysis} />
-      <WatchlistSection index={indexOf("watchlist")} analysis={analysis} />
-      <MethodSection index={indexOf("method")} brief={brief} />
+      <SectionsWithNav sections={BRIEF_SECTIONS} label="Sections of this brief">
+        <PainPointsSection index={indexOf("pain-points")} analysis={analysis} stats={stats} />
+        <TrendingSection index={indexOf("trending")} stats={stats} />
+        <KeywordsSection index={indexOf("keywords")} stats={stats} />
+        <UnresolvedSection index={indexOf("unresolved")} analysis={analysis} stats={stats} />
+        <ObjectionsSection index={indexOf("objections")} analysis={analysis} />
+        <SprintSection index={indexOf("sprint")} analysis={analysis} />
+        <WatchlistSection index={indexOf("watchlist")} analysis={analysis} />
+        <MethodSection index={indexOf("method")} brief={brief} />
+      </SectionsWithNav>
     </article>
   );
 }
@@ -98,11 +101,19 @@ export function BriefSkeleton({ label = "Loading the brief…" }: { label?: stri
           </div>
         ))}
       </div>
-      <div className="space-y-4 border-t border-rule pt-8">
-        <Skeleton className="h-8 w-60" />
-        <Skeleton className="h-4 w-full max-w-xl" />
-        <Skeleton className="h-48 w-full rounded-2xl" />
-        <Skeleton className="h-48 w-full rounded-2xl" />
+      <div className={RAIL_GRID}>
+        <div aria-hidden="true" className="hidden space-y-3 xl:block">
+          <Skeleton className="h-3 w-24" />
+          {[0, 1, 2, 3, 4, 5].map((i) => (
+            <Skeleton key={i} className="h-4 w-32" />
+          ))}
+        </div>
+        <div className="space-y-4 border-t border-rule pt-8">
+          <Skeleton className="h-8 w-60" />
+          <Skeleton className="h-4 w-full max-w-xl" />
+          <Skeleton className="h-48 w-full rounded-2xl" />
+          <Skeleton className="h-48 w-full rounded-2xl" />
+        </div>
       </div>
     </div>
   );

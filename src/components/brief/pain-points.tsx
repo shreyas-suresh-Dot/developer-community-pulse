@@ -80,7 +80,7 @@ function PainPointCard({
   const quoteThread = point.quote ? evidence[point.quote.threadKey] : undefined;
 
   return (
-    <li id={anchor} aria-labelledby={`${anchor}-title`} className="card scroll-mt-6 overflow-hidden">
+    <li id={anchor} aria-labelledby={`${anchor}-title`} className="card scroll-mt-20 overflow-hidden xl:scroll-mt-6">
       <div className="p-5 sm:p-6">
         <div className="flex flex-wrap items-center gap-2">
           <span aria-hidden="true" className="mr-0.5 text-sm font-semibold tabular-nums text-accent">

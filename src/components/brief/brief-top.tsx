@@ -80,15 +80,6 @@ export function BriefTop({ brief }: { brief: BriefRecord }) {
         </p>
         <KpiTiles brief={brief} />
       </div>
-
-      <nav aria-label="Sections of this brief" className="flex flex-wrap items-center gap-x-1 gap-y-1 text-sm">
-        <span className="mr-2 text-ink-3">On this page</span>
-        {BRIEF_SECTIONS.map((s) => (
-          <a key={s.id} href={`#${s.id}`} className="rounded-full border border-rule px-3 py-1 text-ink-2 transition-colors hover:border-rule-strong hover:bg-surface hover:text-ink">
-            {s.label}
-          </a>
-        ))}
-      </nav>
     </div>
   );
 }

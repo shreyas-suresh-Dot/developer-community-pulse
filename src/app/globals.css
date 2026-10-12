@@ -208,10 +208,10 @@
   }
 
   /*
-   * Data tables: real <table> semantics on wide screens. Below 48rem each row becomes a compact card:
+   * Data tables: real <table> semantics on wide screens. Below 64rem each row becomes a compact card:
    * the row header first, then "label … value" pairs (labels from data-label) in two columns, with
-   * .wide cells (sparklines, notes, long values) spanning both, so a 360 px screen never scrolls
-   * sideways.
+   * .wide cells (sparklines, notes, long values) spanning both, so no screen scrolls sideways (the
+   * widest table, trending topics, needs about 55rem of column).
    */
   .data-table {
     width: 100%;
@@ -251,7 +251,7 @@
   .data-table .num {
     text-align: right;
   }
-  @media (max-width: 47.99rem) {
+  @media (max-width: 63.99rem) {
     .data-table thead {
       position: absolute;
       width: 1px;

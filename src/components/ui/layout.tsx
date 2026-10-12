@@ -1,7 +1,21 @@
 import type { ReactNode } from "react";
 import { cx } from "./cx";
+import { SectionNav, type NavSection } from "./section-nav";
 
 /* Page-level building blocks shared by every route: the intro block and numbered brief sections. */
+
+/** Two columns from xl up: the "On this page" rail, then the sections. Shared with the brief skeleton. */
+export const RAIL_GRID = "xl:grid xl:grid-cols-[11rem_minmax(0,1fr)] xl:gap-x-12";
+
+/** Numbered sections with a sticky "On this page" menu: a rail on desktop, a swipe bar on phones. */
+export function SectionsWithNav({ sections, label, children }: { sections: readonly NavSection[]; label: string; children: ReactNode }) {
+  return (
+    <div className={RAIL_GRID}>
+      <SectionNav sections={sections} label={label} />
+      <div className="min-w-0 space-y-14 sm:space-y-16">{children}</div>
+    </div>
+  );
+}
 
 export function PageIntro({ kicker, title, children }: { kicker: string; title: string; children?: ReactNode }) {
   return (
@@ -29,7 +43,7 @@ export function Section({
   className?: string;
 }) {
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className={cx("scroll-mt-6 border-t border-rule pt-8 sm:pt-10", className)}>
+    <section id={id} aria-labelledby={`${id}-title`} className={cx("scroll-mt-20 border-t border-rule pt-8 sm:pt-10 xl:scroll-mt-8", className)}>
       <header className="mb-6 grid gap-x-5 gap-y-1 sm:grid-cols-[3rem_1fr]">
         {index ? (
           <span aria-hidden="true" className="font-serif text-lg italic leading-9 text-accent sm:text-xl">
