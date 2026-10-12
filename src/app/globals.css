@@ -124,6 +124,16 @@
     cursor: pointer;
   }
 
+  /*
+   * Below xl the section menu is a bar pinned to the top of the screen. Reserving its height keeps
+   * keyboard focus and anchor jumps from landing underneath it (WCAG 2.4.11, focus not obscured).
+   */
+  @media (max-width: 79.99rem) {
+    html:has([data-section-nav]) {
+      scroll-padding-top: 4rem;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;

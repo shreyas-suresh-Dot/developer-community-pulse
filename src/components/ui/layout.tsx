@@ -43,7 +43,7 @@ export function Section({
   className?: string;
 }) {
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className={cx("scroll-mt-20 border-t border-rule pt-8 sm:pt-10 xl:scroll-mt-8", className)}>
+    <section id={id} aria-labelledby={`${id}-title`} className={cx("scroll-mt-4 border-t border-rule pt-8 sm:pt-10 xl:scroll-mt-8", className)}>
       <header className="mb-6 grid gap-x-5 gap-y-1 sm:grid-cols-[3rem_1fr]">
         {index ? (
           <span aria-hidden="true" className="font-serif text-lg italic leading-9 text-accent sm:text-xl">

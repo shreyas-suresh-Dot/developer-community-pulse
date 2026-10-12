@@ -82,6 +82,7 @@ export function SectionNav({ sections, label }: { sections: readonly NavSection[
 
   return (
     <nav
+      data-section-nav=""
       aria-label={label}
       className={cx(
         "sticky top-0 z-30 -mx-4 mb-8 border-b border-rule bg-paper/90 backdrop-blur-md sm:-mx-6",
@@ -107,9 +108,11 @@ export function SectionNav({ sections, label }: { sections: readonly NavSection[
                 data-section={s.id}
                 aria-current={current ? "location" : undefined}
                 onClick={(event) => onJump(event, s.id)}
+                // The pinned bar sits inside the top 4rem that html's scroll-padding reserves; shifting each
+                // chip's scroll box by the same amount stops focusing a chip from nudging the page.
                 className={cx(
-                  "flex items-baseline gap-2 whitespace-nowrap rounded-full border px-3 py-1 text-sm transition-colors",
-                  "xl:-ml-px xl:whitespace-normal xl:rounded-none xl:border-0 xl:border-l-2 xl:py-1.5 xl:pl-4 xl:pr-0",
+                  "flex -scroll-mt-16 scroll-mb-16 items-baseline gap-2 whitespace-nowrap rounded-full border px-3 py-1 text-sm transition-colors",
+                  "xl:-ml-px xl:scroll-mt-0 xl:scroll-mb-0 xl:whitespace-normal xl:rounded-none xl:border-0 xl:border-l-2 xl:py-1.5 xl:pl-4 xl:pr-0",
                   current
                     ? "border-accent/40 bg-accent-tint font-semibold text-ink xl:border-accent xl:bg-transparent"
                     : "border-rule text-ink-2 hover:border-rule-strong hover:text-ink xl:border-transparent",
