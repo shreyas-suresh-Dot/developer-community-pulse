@@ -11,7 +11,18 @@ delivers a brief that answers four questions:
 4. Which problems look unresolved or underserved by existing tools?
 
 - **Live app:** https://developer-community-pulse-nine.vercel.app
+- **Components map:** [PNG](public/components-map.png) · [SVG](public/components-map.svg), also served at https://developer-community-pulse-nine.vercel.app/components-map.png
 - **Design doc (scope, pipeline, edge cases):** [docs/DESIGN.md](docs/DESIGN.md)
+
+---
+
+## Components map
+
+Who does what at each stage of the Friday run. Rows are actors, columns are stages, and dashed arrows
+are hand-offs. Every brief passes the quality gate (orange) before it reaches Sumit. Regenerate it with
+`node scripts/components-map.mjs`.
+
+![Components map: Vercel Cron triggers the run; community APIs and Supabase topic config feed the pipeline code; Gemini Flash classifies threads and writes the brief; a code quality gate checks it before Sumit gets it by email and on the dashboard](public/components-map.png)
 
 ---
 

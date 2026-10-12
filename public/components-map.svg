@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1592" height="964" viewBox="0 0 1592 964" role="img" aria-labelledby="map-title map-desc" font-family="Arial, Helvetica, sans-serif">
+<title id="map-title">Developer Community Pulse · Sumit — Components Map</title>
+<desc id="map-desc">Every Friday at 07:00 IST Vercel Cron (or Sumit, with a passcode) starts a run. Hacker News, Stack Overflow and DEV supply four weeks of posts and Supabase supplies Sumit's topic config. Pipeline code matches keywords into threads and counts them per week with fixed trend rules. Gemini Flash classifies each thread, then writes pain points, underserved problems, objections and sprint ideas. A code quality gate drops invented threads and quotes that are not verbatim and saves the brief in Supabase; Sumit gets it by email and on the dashboard.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#6b7fa8"/></marker></defs>
+<rect width="1592" height="964" fill="#ffffff"/>
+<text x="796" y="52" text-anchor="middle" font-size="22" font-weight="600" fill="#334155">Developer Community Pulse · Sumit — Components Map</text>
+<rect x="248" y="140" width="1296" height="728" fill="#f3f7fd"/>
+<line x1="464" y1="140" x2="464" y2="868" stroke="#e1e8f4"/>
+<line x1="680" y1="140" x2="680" y2="868" stroke="#e1e8f4"/>
+<line x1="896" y1="140" x2="896" y2="868" stroke="#e1e8f4"/>
+<line x1="1112" y1="140" x2="1112" y2="868" stroke="#e1e8f4"/>
+<line x1="1328" y1="140" x2="1328" y2="868" stroke="#e1e8f4"/>
+<line x1="248" y1="244" x2="1544" y2="244" stroke="#e1e8f4"/>
+<line x1="248" y1="348" x2="1544" y2="348" stroke="#e1e8f4"/>
+<line x1="248" y1="452" x2="1544" y2="452" stroke="#e1e8f4"/>
+<line x1="248" y1="556" x2="1544" y2="556" stroke="#e1e8f4"/>
+<line x1="248" y1="660" x2="1544" y2="660" stroke="#e1e8f4"/>
+<line x1="248" y1="764" x2="1544" y2="764" stroke="#e1e8f4"/>
+<rect x="48" y="84" width="200" height="56" fill="#6c6992"/>
+<rect x="248" y="84" width="1296" height="56" fill="#3f55a0"/>
+<text x="148" y="118" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Actor</text>
+<text x="356" y="118" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Trigger</text>
+<line x1="464" y1="84" x2="464" y2="140" stroke="#ffffff" stroke-opacity="0.35"/>
+<text x="572" y="118" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Input</text>
+<line x1="680" y1="84" x2="680" y2="140" stroke="#ffffff" stroke-opacity="0.35"/>
+<text x="788" y="118" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Context</text>
+<line x1="896" y1="84" x2="896" y2="140" stroke="#ffffff" stroke-opacity="0.35"/>
+<text x="1004" y="118" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Processing</text>
+<line x1="1112" y1="84" x2="1112" y2="140" stroke="#ffffff" stroke-opacity="0.35"/>
+<text x="1220" y="118" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">AI</text>
+<line x1="1328" y1="84" x2="1328" y2="140" stroke="#ffffff" stroke-opacity="0.35"/>
+<text x="1436" y="118" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Output</text>
+<rect x="48" y="140" width="200" height="104" fill="#77749b" stroke="#ffffff" stroke-width="2"/>
+<text x="148" y="189" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Vercel Cron</text>
+<text x="148" y="209" text-anchor="middle" font-size="12.5" fill="#e4e2f3">(Scheduler)</text>
+<rect x="48" y="244" width="200" height="104" fill="#77749b" stroke="#ffffff" stroke-width="2"/>
+<text x="148" y="293" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Community APIs</text>
+<text x="148" y="313" text-anchor="middle" font-size="12.5" fill="#e4e2f3">(HN · Stack Overflow · DEV)</text>
+<rect x="48" y="348" width="200" height="104" fill="#77749b" stroke="#ffffff" stroke-width="2"/>
+<text x="148" y="397" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Supabase</text>
+<text x="148" y="417" text-anchor="middle" font-size="12.5" fill="#e4e2f3">(Topic config)</text>
+<rect x="48" y="452" width="200" height="104" fill="#77749b" stroke="#ffffff" stroke-width="2"/>
+<text x="148" y="501" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Pipeline code</text>
+<text x="148" y="521" text-anchor="middle" font-size="12.5" fill="#e4e2f3">(Vercel Function)</text>
+<rect x="48" y="556" width="200" height="104" fill="#77749b" stroke="#ffffff" stroke-width="2"/>
+<text x="148" y="605" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Gemini Flash</text>
+<text x="148" y="625" text-anchor="middle" font-size="12.5" fill="#e4e2f3">(Classify · Write)</text>
+<rect x="48" y="660" width="200" height="104" fill="#77749b" stroke="#ffffff" stroke-width="2"/>
+<text x="148" y="709" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Quality Gate</text>
+<text x="148" y="729" text-anchor="middle" font-size="12.5" fill="#e4e2f3">(Code checks)</text>
+<rect x="48" y="764" width="200" height="104" fill="#77749b" stroke="#ffffff" stroke-width="2"/>
+<text x="148" y="813" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Sumit</text>
+<text x="148" y="833" text-anchor="middle" font-size="12.5" fill="#e4e2f3">(PM)</text>
+<rect x="251" y="663" width="1290" height="98" rx="4" fill="none" stroke="#f97316" stroke-width="1.8" stroke-dasharray="7 5"/>
+<rect x="259" y="154" width="194" height="76" rx="8" fill="#ffffff" stroke="#3b82f6" stroke-width="1.8"/>
+<text x="356" y="179" text-anchor="middle" font-size="13.5" fill="#334155">Fires Friday 07:00 IST</text>
+<text x="356" y="197" text-anchor="middle" font-size="13.5" fill="#334155">and starts the run</text>
+<text x="356" y="215" text-anchor="middle" font-size="13.5" fill="#334155">(or Sumit: Run now)</text>
+<rect x="475" y="258" width="194" height="76" rx="8" fill="#ffffff" stroke="#3b82f6" stroke-width="1.8"/>
+<text x="572" y="283" text-anchor="middle" font-size="13.5" fill="#334155">Fetch 4 weeks of posts</text>
+<text x="572" y="301" text-anchor="middle" font-size="13.5" fill="#334155">for every keyword &amp; tag</text>
+<text x="572" y="319" text-anchor="middle" font-size="13.5" fill="#334155">(each source isolated)</text>
+<rect x="691" y="362" width="194" height="76" rx="8" fill="#ffffff" stroke="#4caf50" stroke-width="1.8"/>
+<text x="788" y="387" text-anchor="middle" font-size="13.5" fill="#334155">Sumit's categories,</text>
+<text x="788" y="405" text-anchor="middle" font-size="13.5" fill="#334155">keywords &amp; context terms</text>
+<text x="788" y="423" text-anchor="middle" font-size="13.5" fill="#334155">edited without code</text>
+<rect x="907" y="466" width="194" height="76" rx="8" fill="#eef8e9" stroke="#5cb85c" stroke-width="1.8"/>
+<text x="1004" y="491" text-anchor="middle" font-size="13.5" fill="#334155">Match keywords → threads</text>
+<text x="1004" y="509" text-anchor="middle" font-size="13.5" fill="#334155">Count per week + trend</text>
+<text x="1004" y="527" text-anchor="middle" font-size="13.5" fill="#334155">rules (numbers by code)</text>
+<rect x="907" y="570" width="194" height="76" rx="8" fill="#eef8e9" stroke="#5cb85c" stroke-width="1.8"/>
+<text x="1004" y="595" text-anchor="middle" font-size="13.5" fill="#334155">Per thread: on-topic?</text>
+<text x="1004" y="613" text-anchor="middle" font-size="13.5" fill="#334155">category · pain point ·</text>
+<text x="1004" y="631" text-anchor="middle" font-size="13.5" fill="#334155">unresolved? (cached)</text>
+<rect x="1123" y="570" width="194" height="76" rx="8" fill="#fbeef6" stroke="#b0538a" stroke-width="1.8"/>
+<text x="1220" y="595" text-anchor="middle" font-size="13.5" fill="#334155">Writes pain points this</text>
+<text x="1220" y="613" text-anchor="middle" font-size="13.5" fill="#334155">vs last week, underserved,</text>
+<text x="1220" y="631" text-anchor="middle" font-size="13.5" fill="#334155">objections, sprint ideas</text>
+<rect x="1339" y="674" width="194" height="76" rx="8" fill="#f1faec" stroke="#5cb85c" stroke-width="1.8"/>
+<text x="1436" y="699" text-anchor="middle" font-size="13.5" fill="#334155">Drops invented threads</text>
+<text x="1436" y="717" text-anchor="middle" font-size="13.5" fill="#334155">&amp; non-verbatim quotes</text>
+<text x="1436" y="735" text-anchor="middle" font-size="13.5" fill="#334155">→ saves brief (Supabase)</text>
+<rect x="1339" y="778" width="194" height="76" rx="8" fill="#f1faec" stroke="#5cb85c" stroke-width="1.8"/>
+<text x="1436" y="803" text-anchor="middle" font-size="13.5" fill="#334155">Email (Resend) + web</text>
+<text x="1436" y="821" text-anchor="middle" font-size="13.5" fill="#334155">brief, every claim linked</text>
+<text x="1436" y="839" text-anchor="middle" font-size="13.5" fill="#334155">→ Monday sprint planning</text>
+<path d="M356 230V244H572V257" fill="none" stroke="#6b7fa8" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<circle cx="356" cy="230" r="4" fill="#22c55e" stroke="#ffffff" stroke-width="1.5"/>
+<path d="M669 296H1028V465" fill="none" stroke="#6b7fa8" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<circle cx="669" cy="296" r="4" fill="#22c55e" stroke="#ffffff" stroke-width="1.5"/>
+<path d="M885 400H980V465" fill="none" stroke="#6b7fa8" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<circle cx="885" cy="400" r="4" fill="#22c55e" stroke="#ffffff" stroke-width="1.5"/>
+<path d="M788 438V608H906" fill="none" stroke="#6b7fa8" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<circle cx="788" cy="438" r="4" fill="#22c55e" stroke="#ffffff" stroke-width="1.5"/>
+<path d="M1004 542V569" fill="none" stroke="#6b7fa8" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<circle cx="1004" cy="542" r="4" fill="#22c55e" stroke="#ffffff" stroke-width="1.5"/>
+<path d="M1101 608H1122" fill="none" stroke="#6b7fa8" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<circle cx="1101" cy="608" r="4" fill="#22c55e" stroke="#ffffff" stroke-width="1.5"/>
+<path d="M1317 608H1436V673" fill="none" stroke="#6b7fa8" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<circle cx="1317" cy="608" r="4" fill="#22c55e" stroke="#ffffff" stroke-width="1.5"/>
+<path d="M1436 750V777" fill="none" stroke="#6b7fa8" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<circle cx="1436" cy="750" r="4" fill="#22c55e" stroke="#ffffff" stroke-width="1.5"/>
+<text x="796" y="904" text-anchor="middle" font-size="13" fill="#475569">Every AI step uses Gemini Flash (gemini-3.6-flash → gemini-3-flash-preview → gemini-3.5-flash-lite fallback). Numbers come from code, words from the AI.</text>
+<text x="796" y="925" text-anchor="middle" font-size="13" fill="#475569">If Gemini is unavailable, a keyword-only brief still ships, marked partial. If a source fails, the others carry on and the brief names it.</text>
+</svg>

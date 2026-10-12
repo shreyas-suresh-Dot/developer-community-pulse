@@ -38,7 +38,16 @@ export default function HowItWorksPage() {
           id="pipeline"
           index="01"
           title="The pipeline"
-          intro="Ten steps, one run, usually two to three minutes. Each step records its status, time and detail, which the run log below shows."
+          intro={
+            <>
+              Ten steps, one run, usually two to three minutes. Each step records its status, time and detail, which the run log below
+              shows. The same run, actor by actor, is in the{" "}
+              <a href="/components-map.png" className="link">
+                components map
+              </a>
+              .
+            </>
+          }
         >
           <PipelineDiagram />
         </Section>
