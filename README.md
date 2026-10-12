@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Developer Community Pulse
 
-## Getting Started
+**An AI-powered weekly developer-community intelligence digest for Sumit**, the sole PM at a 15-person startup that
+sells a code-review automation tool to mid-size engineering teams. Every **Friday at 07:00 IST** it reads what
+developers posted on **Hacker News, Stack Overflow and DEV** about code review, CI/CD and developer workflow, and
+delivers a brief that answers four questions:
 
-First, run the development server:
+1. What are developers actively discussing in our problem space right now?
+2. Which pain points surface most often?
+3. Is each one trending up or down compared with last week (and over the last month)?
+4. Which problems look unresolved or underserved by existing tools?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Live app:** https://developer-community-pulse-nine.vercel.app
+- **Design doc (scope, pipeline, edge cases):** [docs/DESIGN.md](docs/DESIGN.md)
+
+---
+
+## What Sumit gets
+
+| Need from the brief | How the app answers it |
+|---|---|
+| "What are developers discussing right now?" | Matched threads from 3 communities for the last 7 days (Fri→Fri, IST), with links to every thread. |
+| "Which pain points are most frequent?" | Gemini groups this week's on-topic threads into pain points; **code counts** how many threads each one has. |
+| "Trending up or down vs last week?" | Every pain point, topic category and keyword shows this week vs last week and a trend label (new / rising / steady / falling / quiet) from fixed rules. Keywords and categories carry a 4-week sparkline, so "is *false positive rate* 4 mentions or 14, and has it grown for a month?" is answered directly. |
+| "Which problems are unresolved / underserved?" | AI flags threads asking for help, complaining about tools, or describing workarounds; plus Stack Overflow questions still without an accepted answer. |
+| Sales objections & sprint planning | "Objections your sales team may hear" and "For Monday's sprint planning", each linked to the pain points and threads behind it. |
+| Change topics without code | Categories, keywords, context terms and sources live in **Supabase** tables; the next run picks up any edit. |
+| Arrives before the afternoon sync | Vercel Cron, Friday 01:30 UTC = **07:00 IST**, email via Resend + the web dashboard. |
+
+## How it works
+
+```
+Vercel Cron (Fri 07:00 IST) ─┐        ┌── "Run now" (passcode) on /how-it-works
+                             ▼        ▼
+1 Load config ......... Supabase: topic_categories, topic_keywords, context_terms, community_sources
+2 Collect ............. Hacker News (Algolia API) · Stack Overflow (Stack Exchange API) · DEV (Forem API)   — 4 weeks, in parallel
+3 Match ............... keyword regex + "context terms" for generic keywords (code)
+4 Store ............... mentions → Supabase (token-gated write function)
+5 Count ............... per-week mentions/threads per keyword, category, source; week-over-week trends (code)
+6 Classify (AI) ....... Gemini: on-topic? category, pain point, unresolved signal, tools — cached per thread
+7 Synthesize (AI) ..... Gemini: pain-point clusters for this + last week, underserved, objections, suggestions
+8 Validate ............ drop invented/wrong-week thread keys, verify quotes verbatim, compute counts/trends (code)
+9 Save ................ briefs (one per week, idempotent upsert) + run log with per-step timings
+10 Deliver ............ email (Resend) + dashboard
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Design principle: numbers come from code, words come from the AI.** The model never outputs a count; it only
+groups thread keys, and code counts them after checking every key exists in this run's data. Quotes must appear
+word-for-word in the source text. Each brief ends with a "How this brief was made" checklist (sources,
+matching, AI relevance, citations, caps).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Reliability
+- **Model fallback chain:** `gemini-3.6-flash` → `gemini-3-flash-preview` → `gemini-3.5-flash-lite`, with a time limit per attempt and for the whole run. A 429 or 503 moves to the next model at once; a 4xx config error fails fast.
+- **Structured output:** JSON Schema generated from zod; every reply is validated before use.
+- **Graceful degradation:** if a source fails, the brief is marked *partial* and names it. If the AI is unavailable, a keyword-based brief is still delivered.
+- **Prompt-injection safe:** community text is wrapped as untrusted data, output is schema-constrained, and citations are validated.
+- **Idempotent and observable:** one brief per week (re-runs replace it), duplicate-run guard, stale-run cleanup, and every step logged for the run page.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Security
+- Supabase **row-level security**: the public (publishable) key can only *read*. All writes go through `SECURITY DEFINER` functions that require a server-held token; only its SHA-256 is stored in the database.
+- The cron endpoint requires `Authorization: Bearer $CRON_SECRET`, sent by Vercel. Manual runs need a passcode and have a 2-minute cooldown. Secrets are compared in constant time.
+- All Supabase and Gemini calls run server-side; no secret reaches the browser.
 
-## Learn More
+## Tech stack
+Next.js 16 (App Router, TypeScript, Tailwind v4) on **Vercel** · **Supabase** (Postgres + RLS) · **Gemini** via
+`@google/genai` · **Resend** for email · zod · vitest.
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/lib/contracts.ts        stored shapes (stats / analysis / quality / delivery) shared by pipeline and UI
+src/lib/pipeline/           config · sources/ · matching · stats · trend · ai · classify · synthesize · validate · fallback · store · deliver · run
+src/app/api/                cron/weekly-brief · pipeline/run · runs/[id]
+src/app/                    / (latest brief) · /briefs · /briefs/[weekEnd] · /topics · /how-it-works
+supabase/migrations/        schema, RLS, write functions, seed topics
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Run it locally
+```bash
+npm install
+# .env.local (never commit):
+# GEMINI_API_KEY, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, PIPELINE_DB_TOKEN, CRON_SECRET, ADMIN_PASSCODE
+# optional: RESEND_API_KEY, BRIEF_RECIPIENTS (comma-separated), BRIEF_FROM, STACKEXCHANGE_KEY, GEMINI_MODELS
+npm run dev                                                # http://localhost:3000
+npm run pipeline -- --week 2026-10-09 --trigger backfill   # run the weekly pipeline for one week
+npm test                                                   # unit tests (matching, weeks, trends, stats, validation, fallback, AI error handling)
+```
+New Supabase project: apply `supabase/migrations/*.sql`, then insert the SHA-256 of `PIPELINE_DB_TOKEN` into
+`private.app_secrets` (see the comment in `001_schema.sql`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Scope decisions
+- **Sources:** Hacker News, Stack Overflow and DEV have free, ToS-friendly public APIs. **Reddit is excluded**: it returns HTTP 403 to server requests and new API apps need approval. X and Discord need paid or privileged access. Each source is an adapter, so adding one doesn't touch the rest of the pipeline.
+- **Free tiers:** Gemini's free tier allows 5 requests/min per model, so the pipeline makes a few large, cached calls. The 3-model chain spreads the load.
+- **Known limitations:** keyword recall depends on Sumit's keyword list; AI relevance is a judgement shown alongside the counts, never instead of them. `npm audit` reports 5 high advisories in the **dev-only** ESLint toolchain (`eslint-config-next` → `micromatch`/`braces`). They are not part of the production bundle, and npm's suggested fix is a downgrade to Next 14's lint config.
