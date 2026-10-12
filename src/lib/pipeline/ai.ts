@@ -14,10 +14,12 @@ import { clip } from "./validate";
 
 export const DEFAULT_MODELS = ["gemini-3.6-flash", "gemini-3-flash-preview", "gemini-3.5-flash-lite"];
 
-/** No attempt starts with less time than this left before the caller's deadline. */
-const MIN_ATTEMPT_MS = 3_000;
+/** Gemini answers HTTP 400 ("Minimum allowed deadline is 10s") to a shorter request timeout. */
+const GEMINI_MIN_TIMEOUT_MS = 10_000;
 /** Each attempt must end this long before the deadline, leaving room to record the outcome. */
 const DEADLINE_MARGIN_MS = 1_000;
+/** No attempt starts unless Gemini's minimum timeout still fits before the caller's deadline. */
+const MIN_ATTEMPT_MS = GEMINI_MIN_TIMEOUT_MS + DEADLINE_MARGIN_MS;
 /** Cool-down after a 429 that carries no RetryInfo. */
 const DEFAULT_COOLDOWN_MS = 60_000;
 
@@ -152,7 +154,7 @@ export async function generateJson<T>(opts: GenerateJsonOptions<T>): Promise<Gen
       continue;
     }
 
-    const timeout = Math.min(opts.perAttemptTimeoutMs ?? 60_000, remaining - DEADLINE_MARGIN_MS);
+    const timeout = Math.max(GEMINI_MIN_TIMEOUT_MS, Math.min(opts.perAttemptTimeoutMs ?? 60_000, remaining - DEADLINE_MARGIN_MS));
     const t0 = Date.now();
     let response: AiResponse;
     try {
