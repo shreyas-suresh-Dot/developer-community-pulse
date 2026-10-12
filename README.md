@@ -49,6 +49,17 @@ groups thread keys, and code counts them after checking every key exists in this
 word-for-word in the source text. Each brief ends with a "How this brief was made" checklist (sources,
 matching, AI relevance, citations, caps).
 
+### Results from real runs (October 2026)
+
+| Week ending | Posts fetched | Matched a keyword | Threads (this vs last week) | AI relevance check | Citations verified | Written by | Run time |
+|---|---|---|---|---|---|---|---|
+| Fri 9 Oct 2026 | 5,548 | 2,244 | 334 vs 345 | 436 on-topic of 507 checked (267 from cache) | 99 of 99 | `gemini-3.6-flash` | 124 s |
+| Fri 2 Oct 2026 | 4,404 | 2,022 | 315 vs 346 | 217 on-topic of 244 checked | 68 of 70 (2 removed) | `gemini-3-flash-preview` (fallback) | 219 s |
+
+About 1,400 generic-keyword hits per run were ignored because the post had no code-review context. Both runs
+finished within Vercel's 300 s function limit, and the 9 Oct brief was emailed. Every run's step log is on
+[/how-it-works](https://developer-community-pulse-nine.vercel.app/how-it-works).
+
 ### Reliability
 - **Model fallback chain:** `gemini-3.6-flash` → `gemini-3-flash-preview` → `gemini-3.5-flash-lite`, with a time limit per attempt and for the whole run. A 429 or 503 moves to the next model at once; a 4xx config error fails fast.
 - **Structured output:** JSON Schema generated from zod; every reply is validated before use.
@@ -80,8 +91,9 @@ npm install
 # GEMINI_API_KEY, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, PIPELINE_DB_TOKEN, CRON_SECRET, ADMIN_PASSCODE
 # optional: RESEND_API_KEY, BRIEF_RECIPIENTS (comma-separated), BRIEF_FROM, STACKEXCHANGE_KEY, GEMINI_MODELS
 npm run dev                                                # http://localhost:3000
+PULSE_FIXTURE=1 npm run dev                                # the UI with sample data, no database needed
 npm run pipeline -- --week 2026-10-09 --trigger backfill   # run the weekly pipeline for one week
-npm test                                                   # unit tests (matching, weeks, trends, stats, validation, fallback, AI error handling)
+npm test                                                   # 91 unit tests (matching, weeks, trends, stats, validation, fallback, AI error handling)
 ```
 New Supabase project: apply `supabase/migrations/*.sql`, then insert the SHA-256 of `PIPELINE_DB_TOKEN` into
 `private.app_secrets` (see the comment in `001_schema.sql`).
